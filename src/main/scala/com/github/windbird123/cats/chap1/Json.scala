@@ -95,9 +95,21 @@ object RecursiveImplicitTest {
 
 // implicit def 대신에 JsonSyntax 에서 처럼 implicit class 를 쓸 수 도 있지 않을까?
 // https://stackoverflow.com/questions/36432376/implicit-class-vs-implicit-conversion-to-trait
+object RecursiveImplicitClass {
+  implicit class JsonOptionClazz[A](option: Option[A]) {
+    def toJson(implicit writer: JsonWriter[A]): Json = option match {
+      case Some(aValue) => writer.write(aValue)
+      case None         => JsNull
+    }
+  }
+}
 
-//object RecursiveImplicitClass {
-//  implicit class JsonOptionClazz[A] {
-//    def toJson()
-//  }
-//}
+object RecursiveImplicitClassTest {
+  import JsonWriterInstances._
+  import RecursiveImplicitClass._
+
+  def main(args: Array[String]): Unit = {
+    val json = Option("A string").toJson
+    println(json)
+  }
+}
