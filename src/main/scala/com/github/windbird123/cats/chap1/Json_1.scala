@@ -1,5 +1,6 @@
 package com.github.windbird123.cats.chap1
 
+// 1.1 Type Class
 sealed trait Json
 
 final case class JsObject(get: Map[String, Json]) extends Json
