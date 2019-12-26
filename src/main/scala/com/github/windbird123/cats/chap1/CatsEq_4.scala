@@ -1,6 +1,6 @@
 package com.github.windbird123.cats.chap1
 
-// cats.Eq. Eq is designed to support type-safe equality and address annoyances using Scala’s built-in == operator.
+// 1.5 cats.Eq. Eq is designed to support type-safe equality and address annoyances using Scala’s built-in == operator.
 object NormalScala {
   def main(args: Array[String]): Unit = {
     // 아래 코드는 Option 과 Int 를 비교하는 오류인데, compiler 에서 잡아주지 못한다.
