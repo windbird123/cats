@@ -5,7 +5,7 @@ object MonixMonad {
   import monix.eval.Task
 
   def main(args: Array[String]): Unit = {
-    val m1 = Monad[Task].pure(3)
-    val m2 = Monad[Task].pure(4)
+    Monad[Task].pure(3)
+    Monad[Task].pure(4)
   }
 }

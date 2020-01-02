@@ -12,7 +12,7 @@ object CatsMonadTest {
 
   def main(args: Array[String]): Unit = {
     val opt1 = Monad[Option].pure(3)
-    val opt2 = Monad[Option].flatMap(opt1)(x => Some(x + 3))
+    Monad[Option].flatMap(opt1)(x => Some(x + 3))
 
     val fm = Monad[Future]
     val future = fm.flatMap(fm.pure(1))(x => fm.pure(x + 2))

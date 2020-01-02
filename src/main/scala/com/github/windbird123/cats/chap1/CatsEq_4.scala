@@ -4,7 +4,7 @@ package com.github.windbird123.cats.chap1
 object NormalScala {
   def main(args: Array[String]): Unit = {
     // 아래 코드는 Option 과 Int 를 비교하는 오류인데, compiler 에서 잡아주지 못한다.
-    List(1, 2, 3).map(Option(_)).filter(item => item == 1)
+//    List(1, 2, 3).map(Option(_)).filter(item => item == 1)
   }
 }
 

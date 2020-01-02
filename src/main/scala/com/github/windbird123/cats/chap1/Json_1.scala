@@ -30,7 +30,9 @@ object JsonWriterInstances {
 /////////////////////////////////////////////////////////////////////////////////
 object Json {
   def toJson[A](value: A)(implicit w: JsonWriter[A]): Json = w.write(value)
+}
 
+object JsonTest {
   def main(args: Array[String]): Unit = {
     import JsonWriterInstances._
     val json = Json.toJson(Person("Dave", "dave@example.com"))
