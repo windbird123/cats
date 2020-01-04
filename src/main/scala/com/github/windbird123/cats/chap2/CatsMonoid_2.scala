@@ -19,20 +19,16 @@ object MonoidInstnaceTest {
   }
 }
 
-object MonoidSyntaxTest {
-  def main(args: Array[String]): Unit = {
-    import cats.Monoid
-    import cats.instances.string._
-    import cats.syntax.semigroup._
+object MonoidSyntaxTest extends App {
+  import cats.Monoid
+  import cats.instances.string._
+  import cats.syntax.semigroup._
 
-    val stringResult = "Hi " |+| "there" |+| Monoid[String].empty // Hi there
+  val stringResult = "Hi " |+| "there" |+| Monoid[String].empty // Hi there
 
-    import cats.instances.int._
-    val intResult = 1 |+| 2 |+| Monoid[Int].empty // 3
-  }
+  import cats.instances.int._
+  val intResult = 1 |+| 2 |+| Monoid[Int].empty // 3
 }
-
-
 
 case class Order(totalCost: Double, quantity: Double)
 
@@ -53,13 +49,13 @@ object SuperAdderTest {
     val out = addSuper(list)
     println(out)
 
-
     // custom type 의 Order 에 적용해 보자
     val orders = List(Order(2.1, 1.1), Order(3.3, 4.3))
 
-    implicit val monoidOrder : Monoid[Order] = new Monoid[Order] {
+    implicit val monoidOrder: Monoid[Order] = new Monoid[Order] {
       override def empty: Order = Order(0.0, 0.0)
-      override def combine(x: Order, y: Order): Order = Order(x.totalCost + y.totalCost, x.quantity + y.quantity)
+      override def combine(x: Order, y: Order): Order =
+        Order(x.totalCost + y.totalCost, x.quantity + y.quantity)
     }
 
     val out2 = addSuper(orders)
