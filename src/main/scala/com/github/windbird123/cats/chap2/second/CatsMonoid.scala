@@ -1,6 +1,6 @@
 package com.github.windbird123.cats.chap2.second
 
-case class Order(totalCost: Double, quantity: Double) extends Monoid[Any]
+case class Order(totalCost: Double, quantity: Double)
 
 object CatsMonoidTest extends App {
 
