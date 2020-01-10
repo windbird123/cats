@@ -1,7 +1,5 @@
 package com.github.windbird123.cats.chap3
 
-import scala.concurrent.Future
-
 trait Contravarint[F[_]] {
   def contramap[A, B](fa: F[A])(f: B => A): F[B]
 }
