@@ -40,6 +40,7 @@ object MonadSyntaxTest {
     // sumSquare(3, 4) 도 working 하게 하고 싶다면???
     import cats.Id
     sumSquare(3: Id[Int], 4 : Id[Int])
+    sumSquare[Id](3, 4)
   }
 }
 
