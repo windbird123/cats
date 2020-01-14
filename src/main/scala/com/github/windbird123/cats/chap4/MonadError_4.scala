@@ -36,7 +36,6 @@ object MonadErrorTest extends App {
   import cats.syntax.applicativeError._ // for raiseError etc
   e.raiseError[Try, Int] // scala.util.Try[Int] = Failure(java.lang.RuntimeException: It's all gone wrong)
 
-
 //  MonadError[Try, Int]
 
 }

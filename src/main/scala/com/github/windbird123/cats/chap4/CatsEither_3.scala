@@ -32,9 +32,22 @@ object CatsEither extends App {
   Either.catchNonFatal(sys.error("Bad")) // Either[Throwable,Nothing]
 
   Either.fromTry(Try("foo".toInt)) // Either[Throwable,Int]
-  Either.fromOption[String, Int](None, "Bad") // Either[String,Int] = Left(Badness)
+  Either
+    .fromOption[String, Int](None, "Bad") // Either[String,Int] = Left(Badness)
 
   "Error".asLeft[Int].getOrElse(0)
-  (-1).asRight[String].ensure("Must be non-negative!")(_ > 0) // Either[String,Int] = Left(Must be non-negative!)
-}
+  (-1)
+    .asRight[String]
+    .ensure("Must be non-negative!")(_ > 0) // Either[String,Int] = Left(Must be non-negative!)
 
+  "error".asLeft[Int].recover { case str: String => -1 }
+
+  "error".asLeft[Int].recoverWith {
+    case str: String => (-1).asRight
+  }
+
+  "foo".asLeft[Int].leftMap(_.reverse)
+  5.asRight[String].bimap(_.reverse, _ * 7)
+
+  "foo".asRight[Double].fold[Int](_.toInt, _.length)
+}
