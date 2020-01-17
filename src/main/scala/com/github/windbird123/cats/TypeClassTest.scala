@@ -1,5 +1,7 @@
 package com.github.windbird123.cats
 
+import scala.util.Try
+
 trait Shape[A] {
   def area(a: A): Double
 }
@@ -38,4 +40,20 @@ object TypeClassTest extends App {
   val rect = Rect(3, 4)
   println(Shape.area(rect))
   println(rect.area)
+}
+
+object TmpTest extends App {
+  import cats.MonadError
+  import cats.instances.try_._
+
+  def parseUser[F[_]](
+    s: String
+  )(implicit me: MonadError[F, Throwable]): F[String] = {
+    me.pure("abc")
+//    me.raiseError("error")
+  }
+
+//  implicit val me = MonadError[Try, Throwable]
+  val user = parseUser[Try]("abc")
+  println(user)
 }
