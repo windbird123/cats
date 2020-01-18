@@ -37,7 +37,7 @@ object CodecInstances {
 /////////////////////////////////////////////////////////////////////////////////
 // 아래 Box2 class 에 대해 Codec 을 구현
 /////////////////////////////////////////////////////////////////////////////////
-//case class Box2[A](value: A)
+case class Box2[A](value: A)
 
 object CodecTest extends App {
   implicit def box2Codec[A](implicit codec: Codec[A]): Codec[Box2[A]] =
