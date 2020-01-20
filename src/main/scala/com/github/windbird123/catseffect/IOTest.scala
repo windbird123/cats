@@ -50,8 +50,8 @@ object IOApply extends App {
 
 object ParTest extends App {
   import cats.data._
-  import cats.effect.{ContextShift, IO}
   import cats.effect.IO._
+  import cats.effect.{ContextShift, IO}
   import cats.syntax.all._
 
   import scala.concurrent.ExecutionContext
@@ -77,4 +77,28 @@ object ParTest extends App {
   val ios = ioList.parSequence
   ios.unsafeRunSync()
   println(new Date())
+}
+
+object Traverse extends App {
+  import cats.instances.future._
+  import cats.instances.list._
+  import cats.syntax.traverse._
+
+  import scala.concurrent.ExecutionContext.Implicits.global
+  import scala.concurrent._
+
+  val list = List("1", "2", "3", "4", "5")
+  val out = list.traverse(
+    x =>
+      Future {
+        Thread.sleep(1000L)
+        println(x)
+        x
+    }
+  )
+
+  println("---- start")
+  println(out.value)
+  println("---- end")
+  Thread.sleep(3000L)
 }
