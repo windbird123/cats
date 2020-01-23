@@ -30,6 +30,41 @@ object CatsWriterTest extends App {
     b <- 32.writer(Vector("x", "y", "z"))
   } yield a + b
 
-//  writer1.run
-  // res4: cats.Id[(Vector[String], Int)] = (Vector(a, b, c, x, y, z),42)
+  val writer1Out = writer1.run
+  println(writer1Out) // (Vector(a, b, c, x, y, z),42)
+
+  val writer2 = writer1.mapWritten(_.map(_.toUpperCase)) // WriterT((Vector(A, B, C, X, Y, Z),42))
+
+  val writer3 = writer1.bimap(log => log.map(_.toUpperCase()), res => res * 100) // WriterT((Vector(A, B, C, X, Y, Z),4200))
+}
+
+object ShowWorkingExercise extends App {
+  def slowly[A](body: => A) =
+    try body
+    finally Thread.sleep(100)
+
+  import cats.data.Writer
+
+  def factorial(n: Int): Writer[List[String], Int] = {
+    for {
+      ans <- if (n == 0) Writer(List.empty[String], 1)
+      else {
+        slowly(factorial(n - 1).map(_ * n))
+      }
+
+      _ <- Writer(List(""), ())
+
+    } yield ans
+  }
+
+  import scala.concurrent.ExecutionContext.Implicits.global
+  import scala.concurrent._
+  import scala.concurrent.duration._
+
+  val out = Await.result(
+    Future.sequence(Vector(Future(factorial(3).run), Future(factorial(5).run))),
+    5.seconds
+  )
+
+  println(out)
 }
