@@ -44,6 +44,7 @@ object ShowWorkingExercise extends App {
     finally Thread.sleep(100)
 
   import cats.data.Writer
+  import cats.instances.list._
 
   def factorial(n: Int): Writer[List[String], Int] = {
     for {
