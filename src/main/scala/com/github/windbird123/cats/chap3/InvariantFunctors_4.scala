@@ -37,16 +37,16 @@ object CodecInstances {
 /////////////////////////////////////////////////////////////////////////////////
 // 아래 Box2 class 에 대해 Codec 을 구현
 /////////////////////////////////////////////////////////////////////////////////
-case class Box2[A](value: A)
+case class Box3[A](value: A)
 
 object CodecTest extends App {
-  implicit def box2Codec[A](implicit codec: Codec[A]): Codec[Box2[A]] =
-    codec.imap[Box2[A]](Box2(_), _.value)
+  implicit def box2Codec[A](implicit codec: Codec[A]): Codec[Box3[A]] =
+    codec.imap[Box3[A]](Box3(_), _.value)
 
   import CodecInstances._
-  val out = Codec.encode(Box2(true))
+  val out = Codec.encode(Box3(true))
   println(out)
 
-  val box = Codec.decode[Box2[Double]]("123.4")
+  val box = Codec.decode[Box3[Double]]("123.4")
   println(box)
 }
