@@ -32,9 +32,9 @@ object BasicTest extends App {
   def sqrtBoxed(x: Int): Boxed[Int] = Boxed(Math.sqrt(x).toInt)
 
   def doubleLogged(x: Int): Logged[Int] =
-    Logged(x + x, List(s"logged ${x + x}"))
+    Logged(x + x, List(s"logged double ${x + x}"))
   def sqrtLogged(x: Int): Logged[Int] =
-    Logged(Math.sqrt(x).toInt, List(s"logged ${Math.sqrt(x).toInt}"))
+    Logged(Math.sqrt(x).toInt, List(s"logged sqrt ${Math.sqrt(x).toInt}"))
 
   def doubleMyOption(x: Int): MyOption[Int] = MySome(x + x)
   def sqrtMyOption(x: Int): MyOption[Int] =
@@ -47,7 +47,7 @@ object BasicTest extends App {
   def sqrtMyList(x: Int): MyList[Int] = Cons(Math.sqrt(x).toInt, MyNil)
 
   ///////////////////////////////////////////////////////////////////////
-  // 조합해 나가기
+  // basic 조합해 나가기
   ///////////////////////////////////////////////////////////////////////
   def o[T, V, U](f: T => V, g: V => U): T => U = x => g(f(x))
 
@@ -58,4 +58,29 @@ object BasicTest extends App {
   // curry 형태로 만들어 보기
   def o2[T, V, U](f: T => V) = (g: V => U) => (x: T) => g(f(x))
   o2(double)(sqrt)
+
+  ///////////////////////////////////////////////////////////////////////
+  // 감싼 타입 조합하기
+  ///////////////////////////////////////////////////////////////////////
+
+  // 아래와 같이 조합하고 싶은데, 이렇게 하면 에러가 난다.
+  // o(doubleBoxed, sqrtBoxed)
+  def mkBoxedFun(f: Int => Boxed[Int]): Boxed[Int] => Boxed[Int] =
+    (x: Boxed[Int]) => f(x.value)
+  o(mkBoxedFun(doubleBoxed), mkBoxedFun(sqrtBoxed))
+
+  def mkLoggedFun(f: Int => Logged[Int]): Logged[Int] => Logged[Int] =
+    (x: Logged[Int]) => f(x.value) // 최종 로그 List 만 남는 문제가 있음
+  def mkLoggedFunRevised(f: Int => Logged[Int]): Logged[Int] => Logged[Int] =
+    (x: Logged[Int]) => {
+      val value = x.value
+      val log = x.log
+      val value2 = f(value)
+      Logged(value2.value,  log ::: value2.log)
+    }
+
+  def mkMyOptionFun(f: Int => MyOption[Int]) : MyOption[Int] => MyOption[Int] = {
+    case MyNone => MyNone
+    case MySome(y) => f(y)
+  }
 }
