@@ -10,7 +10,7 @@ object CreateStreamTest extends App {
   val stream = Stream(1, 2, 3, 4)
 
   // fs2 stream
-  fs2.Stream.eval(IO(2)).compile.toList.unsafeRunSync
+//  fs2.Stream.eval(IO(2)).compile.toList.unsafeRunSync
 
   fs2.Stream
     .emits('A' to 'E')
@@ -56,7 +56,7 @@ object CreateStreamTest extends App {
   // Asynchronous computation
   def writeToDatabase[F[_]: Async](chunk: Chunk[Int]) : F[Unit] = Async[F].async { callback =>
     println(s"Writing batch of $chunk to database by ${Thread.currentThread().getName}")
-    callback(Right())
+//    callback(Right())
   }
 
   fs2.Stream.emits(1 to 10000)
