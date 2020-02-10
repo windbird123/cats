@@ -24,6 +24,7 @@ object ValidatedCombination extends App {
   import cats.syntax.validated._
   import cats.instances.vector._
 
-  val out = (Vector(404).invalid[Int], Vector(500).invalid[Int]).tupled
+  val out = (Vector(404).invalid[Int], Vector(500).invalid[Int], 3.valid[Vector[Int]]).tupled
+//  val out = (2.valid[Vector[Int]], 3.valid[Vector[Int]]).tupled
   println(out)
 }
