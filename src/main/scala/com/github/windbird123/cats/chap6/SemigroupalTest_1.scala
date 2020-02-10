@@ -2,12 +2,16 @@ package com.github.windbird123.cats.chap6
 
 object SemigroupalTest extends App {
   import cats.Semigroupal
+  import cats.instances.list._
   import cats.instances.option._
 
   Semigroupal[Option].product(Some(123), Some("abc")) // Some((123, "abc"))
 
   import cats.syntax.apply._
   (Option(123), Option("abc")).tupled
+
+  val lt = (List(1, 2), List(3, 4)).tupled
+  println(lt) // List((1,3), (1,4), (2,3), (2,4))
 
   import cats.Semigroupal
   import cats.instances.future._
