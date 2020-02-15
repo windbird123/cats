@@ -10,13 +10,14 @@ object Shape {
 }
 
 case class Circle(r: Double)
-case class Rect(w: Double, h: Double)
-
-object ShapeInstances {
+object Circle {
   implicit val circleInst: Shape[Circle] = new Shape[Circle] {
     override def area(circle: Circle): Double = Math.PI * circle.r * circle.r
   }
+}
 
+case class Rect(w: Double, h: Double)
+object Rect {
   implicit val rectInst: Shape[Rect] = new Shape[Rect] {
     override def area(rect: Rect): Double = rect.w * rect.h
   }
@@ -29,7 +30,6 @@ object ShapeSyntax {
 }
 
 object TypeClassTest extends App {
-  import ShapeInstances._
   import ShapeSyntax._
 
   val circle = Circle(5)
