@@ -7,6 +7,10 @@ trait Shape[A] {
 object Shape {
   def apply[A](implicit inst: Shape[A]): Shape[A] = inst
 //  def area[A](a: A)(implicit inst: Shape[A]): Double = inst.area(a)
+
+  implicit class ShapeSyntaxImpl[A](any: A) {
+    def area(implicit inst: Shape[A]): Double = Shape[A].area(any)
+  }
 }
 
 case class Circle(r: Double)
@@ -23,14 +27,8 @@ object Rect {
   }
 }
 
-object ShapeSyntax {
-  implicit class ShapeSyntaxImpl[A](any: A) {
-    def area(implicit inst: Shape[A]): Double = Shape[A].area(any)
-  }
-}
-
 object TypeClassTest extends App {
-  import ShapeSyntax._
+  import Shape._
 
   val circle = Circle(5)
   println(Shape[Circle].area(circle))
