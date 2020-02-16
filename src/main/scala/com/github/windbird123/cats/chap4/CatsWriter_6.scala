@@ -53,7 +53,7 @@ object ShowWorkingExercise extends App {
         slowly(factorial(n - 1).map(_ * n))
       }
 
-      _ <- Writer(List(""), ())
+      _ <- Writer(List(s"fact $n is $ans"), ())
 
     } yield ans
   }
