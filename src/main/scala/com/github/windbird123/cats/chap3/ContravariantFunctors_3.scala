@@ -1,6 +1,8 @@
 package com.github.windbird123.cats.chap3
 
 // The contramap method only makes sense for data types that represent transformations
+// contramap 은 A type 에 대한 typeclass instance 로 부터 B type 에 대한 typeclass instance 를 만들어 내는데 사용하는 것 같다.
+// boxPrintable2 에서 처럼 string 에 대한 typeclass instance 로 부터 Box[String] typeclass instance 를 만들어 낸다.
 object ContravariantFunctorsTest {}
 
 trait Printable2[A] {
