@@ -33,6 +33,26 @@ object CatsStateTest extends App {
   val (state2, result2) = program.run(1).value
   // state2: Int = 3
   // result: (Int, Int, Int) = (1,2,3000)
+
+  // ---------------------------------------------
+  // 위의 프로그램은 아래와 동일하다
+  // ---------------------------------------------
+  val s1 = State[Int, Int](s => (s, s))
+  val s2 = State[Int, Int](s => (s + 1, 0))
+  val s3 = State[Int, Int](s => (s, s))
+  val s4 = State[Int, Int](s => (s + 1, 0))
+  val s5 = State[Int, Int](s => (s, s * 1000))
+
+  val s = for {
+    a <- s1
+    _ <- s2
+    b <- s3
+    _ <- s4
+    c <- s5
+  } yield (a, b, c)
+
+  val out = s.run(1).value
+  println(out)
 }
 
 object PostOrderCalcExercise extends App {
