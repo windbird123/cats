@@ -19,7 +19,7 @@ object CatsEqTest {
   }
 }
 
-// Dog class 에 대한 eq
+// Dog class 에 대한 eq 를 정의해 보자
 final case class Dog(name: String, age: Int)
 
 object DogExercise {
