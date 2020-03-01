@@ -1,4 +1,4 @@
-package com.github.windbird123.cats.chap3
+package com.github.windbird123.cats.chap03
 
 trait Codec[A] {
   self =>

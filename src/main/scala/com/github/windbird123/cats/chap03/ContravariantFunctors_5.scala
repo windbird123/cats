@@ -1,10 +1,8 @@
-package com.github.windbird123.cats.chap3
+package com.github.windbird123.cats.chap03
 
 // The contramap method only makes sense for data types that represent transformations
 // contramap 은 A type 에 대한 typeclass instance 로 부터 B type 에 대한 typeclass instance 를 만들어 내는데 사용하는 것 같다.
 // boxPrintable2 에서 처럼 string 에 대한 typeclass instance 로 부터 Box[String] typeclass instance 를 만들어 낸다.
-object ContravariantFunctorsTest {}
-
 trait Printable2[A] {
   self =>
   def format(value: A): String
@@ -49,7 +47,7 @@ object BoxTest extends App {
     override def format(value: Boolean): String = if (value) "yes" else "no"
   }
 
-    // 방법 1
+  // 방법 1
 //  implicit def boxPrintable2[A](implicit p: Printable2[A]): Printable2[Box[A]] =
 //    new Printable2[Box[A]] {
 //      override def format(box: Box[A]): String = p.format(box.value)
