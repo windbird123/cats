@@ -47,5 +47,3 @@ object Predicate {
   def lift[E, A](err: E, fn: A => Boolean): Predicate[E, A] =
     Pure(a => if (fn(a)) a.valid else err.invalid)
 }
-
-object CompleteSolution {}
