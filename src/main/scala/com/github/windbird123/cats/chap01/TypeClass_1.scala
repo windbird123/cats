@@ -29,6 +29,13 @@ object Rect {
 }
 
 object ShapeTest {
+  import Shape._
+  def contextBound[A: Shape](a: A) : Unit = {
+    val out = a.area()
+    println(s"area============== [$out]")
+  }
+
+
   def main(args: Array[String]): Unit = {
     // 방법 1
     val circle = Circle(2)
@@ -38,5 +45,9 @@ object ShapeTest {
     import Shape._
     val rect = Rect(2, 3)
     rect.area() // 6.0
+
+    // https://books.underscore.io/essential-scala/essential-scala.html#using-type-classes
+    // context bound
+    contextBound(rect)
   }
 }
