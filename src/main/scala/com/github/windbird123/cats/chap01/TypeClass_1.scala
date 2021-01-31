@@ -49,5 +49,8 @@ object ShapeTest {
     // https://books.underscore.io/essential-scala/essential-scala.html#using-type-classes
     // context bound
     contextBound(rect)
+
+    // 아래처럼 명시적으로 지정도 가능하다.
+    contextBound(rect)(Rect.rectInst)
   }
 }
